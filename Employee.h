@@ -1,6 +1,7 @@
 #pragma once
-#include "person.h"
-#include "client.h"
+
+#include "Person.h"
+
 #include <iostream>
 #include <string>
 
@@ -8,39 +9,31 @@ using namespace std;
 
 class Employee : public Person
 {
+private:
+    double Salary;
 
 public:
-    Employee(string Name, string Password, double Blance)
-        : Person(0, Name, Password, Blance) {}
-    string getName()
+    Employee(int ID, string Name, string Password, double Salary)
+        : Person(ID, Name, Password)
     {
-        return Name;
+        setSalary(Salary);
     }
-    string getPassword()
+
+    double getSalary() { return Salary; }
+
+    bool setSalary(double Salary)
     {
-        return Password;
+        if (Validation::minSalary(Salary))
+        {
+            this->Salary = Salary;
+            return true;
+        }
+        return false;
     }
-    double getBalance()
-    {
-        return Balance;
-    }
-    void setName(string Name)
-    {
-        this->Name = Name;
-    }
-    void setPassword(string Password)
-    {
-        this->Password = Password;
-    }
-    void setBalance(double Balance)
-    {
-        this->Balance = Balance;
-    }
+
     void display()
     {
-        cout << Name << endl;
-        cout << Password << endl;
-        cout << Balance << endl;
+        Person::display();
+        cout << "Salary: " << Salary << endl;
     }
 };
-int main(){};

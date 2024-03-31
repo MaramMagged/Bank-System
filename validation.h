@@ -1,10 +1,7 @@
 #pragma once
+
 #include <iostream>
 #include <string>
-#include "exceptions.h"
-#include "person.h"
-#include "client.h"
-#include "admin.h"
 
 using namespace std;
 
@@ -13,15 +10,15 @@ class Validation
 public:
     static bool nameValid(const string &name)
     {
-        return (name.length() >= 5 && name.length() <= 20 && isalpha(name));
+        return (name.length() >= 5 && name.length() <= 20 && stringIsAlphabetic(name));
     }
     static bool passValid(const string &pass)
     {
         return (pass.length() >= 8 && pass.length() <= 20);
     }
-    static bool minBlance(double blance)
+    static bool minBalance(double balance)
     {
-        return (blance >= 1500);
+        return (balance >= 1500);
     }
     static bool minSalary(double salary)
     {
@@ -29,21 +26,13 @@ public:
     }
 
 private:
-    static bool isalpha(const string &str)
+    static bool stringIsAlphabetic(string str)
     {
-
-        for (char c : str)
+        for (auto c : str)
         {
-            if (!::isalpha(c))
-            {
+            if (!isalpha(c) && !isspace(c))
                 return false;
-            }
         }
         return true;
     }
 };
-int main()
-{
-
-    return 0;
-}
