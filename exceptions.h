@@ -1,13 +1,12 @@
 
+// tbh this whole file isn't needed, you can define custom Exception classes but this currently isn't very useful
+
 #pragma once
 #include <iostream>
 #include <string>
 #include <stdexcept>
 #include <cctype>
 #include "validation.h"
-#include "person.h"
-#include "client.h"
-#include "admin.h"
 
 using namespace std;
 class myExceptions
@@ -49,9 +48,3 @@ private:
         return true;
     }
 };
-
-int main()
-{
-
-    return 0;
-}
