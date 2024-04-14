@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string>
-
+#include <vector>
+#include <string>
 #include "Person.h"
 #include "validation.h"
+#include "helperClass.h"
 
 using namespace std;
 
@@ -67,5 +69,25 @@ public:
     void CheckBalance()
     {
         cout << "Current balance : " << getBalance() << endl;
+    }
+    static vector<Client> AllClients;
+
+    //*****************************************
+    string serialize()
+    {
+        return to_string(ID) + "&" + Name + "&" + Password + "&" + to_string(Balance);
+    }
+    void deserialize(string &line)
+    {
+        vector<string> tokens = Parser::split(line, '&');
+        ID = stoi(tokens[0]);
+        Name = tokens[1];
+        Password = tokens[2];
+        Balance = stod(tokens[3]);
+    }
+    void display()
+    {
+        Person::display();
+        cout << "Balance : " << Balance << endl;
     }
 };

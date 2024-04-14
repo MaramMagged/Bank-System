@@ -1,7 +1,5 @@
 #pragma once
-
 #include "validation.h"
-
 #include <iostream>
 #include <string>
 
