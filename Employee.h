@@ -85,6 +85,8 @@ public:
         }
         return nullptr;
     }
+
+    static inline vector<Employee> AllEmployee = {};
     //****************************************
     string serialize()
     {

@@ -13,7 +13,7 @@ using namespace std;
 class Parser
 {
 public:
-    static vector<string> split(const string &line, char delimiter)
+    static vector<string> split(const string &line, char &delimiter)
     {
         vector<string> tokens;
         stringstream ss(line);

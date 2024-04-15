@@ -70,7 +70,7 @@ public:
     {
         cout << "Current balance : " << getBalance() << endl;
     }
-    static vector<Client> AllClients;
+    static inline vector<Client> AllClients = {};
 
     //*****************************************
     string serialize()
