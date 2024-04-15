@@ -1,8 +1,10 @@
 #pragma once
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <string>
+
 #include "Person.h"
 #include "validation.h"
 #include "helperClass.h"
@@ -12,12 +14,14 @@ using namespace std;
 class Client : public Person
 {
 private:
+    static inline int numberOfClients = 11000;
     double Balance;
 
 public:
-    Client(int ID, string Name, string Password, double Balance)
-        : Person(ID, Name, Password)
+    Client(string Name, string Password, double Balance)
+        : Person(Name, Password)
     {
+        this->setID(++numberOfClients);
         setBalance(Balance);
     }
 
@@ -70,24 +74,26 @@ public:
     {
         cout << "Current balance : " << getBalance() << endl;
     }
-    static inline vector<Client> AllClients = {};
 
-    //*****************************************
     string serialize()
     {
-        return to_string(ID) + "&" + Name + "&" + Password + "&" + to_string(Balance);
+        return getName() + "&" + getPassword() + "&" + to_string(getBalance());
     }
+
     void deserialize(string &line)
     {
-        vector<string> tokens = Parser::split(line, '&');
-        ID = stoi(tokens[0]);
-        Name = tokens[1];
-        Password = tokens[2];
-        Balance = stod(tokens[3]);
+        vector<string> tokens = Helper::split(line, '&');
+
+        setName(tokens[0]);
+        setPassword(tokens[1]);
+        setBalance(stod(tokens[2]));
     }
+
     void display()
     {
         Person::display();
         cout << "Balance : " << Balance << endl;
     }
+
+    static inline vector<Client> AllClients = {};
 };

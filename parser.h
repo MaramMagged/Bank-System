@@ -1,59 +1,51 @@
 #pragma once
+
+#include "Client.h"
+#include "Employee.h"
+#include "Admin.h"
+#include "helperClass.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
 #include <memory>
 #include <sstream>
-#include "Employee.h"
-#include "Admin.h"
-#include "Client.h"
 
 using namespace std;
 
 class Parser
 {
 public:
-    static vector<string> split(const string &line, char &delimiter)
-    {
-        vector<string> tokens;
-        stringstream ss(line);
-        string token;
-        while (getline(ss, token, delimiter))
-        {
-            tokens.push_back(token);
-        }
-        return tokens;
-    }
     static Client ParseToClient(const string &line)
     {
-        vector<string> tokens = split(line, '&');
-        int id = stoi(tokens[0]);
-        string name = tokens[1];
-        string password = tokens[2];
-        double balance = stod(tokens[3]);
+        vector<string> tokens = Helper::split(line, '&');
 
-        return Client(id, name, password, balance);
+        string name = tokens[0];
+        string password = tokens[1];
+        double balance = stod(tokens[2]);
+
+        return Client(name, password, balance);
     }
     static Employee ParseToEmployee(const string &line)
     {
-        vector<string> tokens = split(line, '&');
+        vector<string> tokens = Helper::split(line, '&');
 
-        int id = stoi(tokens[0]);
-        string name = tokens[1];
-        string password = tokens[2];
-        double salary = stod(tokens[3]);
+        string name = tokens[0];
+        string password = tokens[1];
+        double salary = stod(tokens[2]);
 
-        return Employee(id, name, password, salary);
+        Employee e(name, password, salary);
+        return e;
     }
     static Admin ParseToAdmin(const string &line)
     {
-        vector<string> tokens = split(line, '&');
+        vector<string> tokens = Helper::split(line, '&');
 
-        int id = stoi(tokens[0]);
-        string name = tokens[1];
-        string password = tokens[2];
-        double salary = stod(tokens[3]);
+        string name = tokens[0];
+        string password = tokens[1];
+        double salary = stod(tokens[2]);
 
-        return Admin(id, name, password, salary);
+        Admin a(name, password, salary);
+        return a;
     }
 };

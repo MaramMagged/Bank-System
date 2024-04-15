@@ -1,35 +1,25 @@
 #pragma once
-#include <iostream>
+
 #include <fstream>
-#include <sstream>
 #include <string>
-#include <Client.h>
-#include <Employee.h>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
 class Helper
 {
 public:
-    static void saveLast(string &fileName, int id)
+    static vector<string> split(const string &line, char delimiter)
     {
-        ofstream file(fileName);
-        if (file.is_open())
+        vector<string> tokens;
+        stringstream ss(line);
+        string token;
+        while (getline(ss, token, delimiter))
         {
-            file << id << endl;
-            file.close();
+            tokens.push_back(token);
         }
-    }
-    static int getLast(string &fileName)
-    {
-        int lastID = 0;
-        ifstream file(fileName);
-        if (file.is_open())
-        {
-            file >> lastID;
-            file.close();
-        }
-        return lastID;
+        return tokens;
     }
     template <typename T>
     static void saveObject(string &fileName, T &object)
@@ -41,6 +31,7 @@ public:
             file.close();
         }
     }
+
     template <typename T>
     static void getObjects(string &fileName)
     {
@@ -52,8 +43,6 @@ public:
             {
                 T object;
                 object.deserialize(line);
-                cout << object.display();
-                cout << endl;
             }
             file.close();
         }

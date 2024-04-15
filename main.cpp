@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
     // creat a client
-    Client client(1, "Maram", "Pass25411", 2000.0);
+    Client client("Maram", "Pass25411", 2000.0);
     client.display();
     cout << endl;
 
@@ -24,12 +24,12 @@ int main()
     cout << endl;
 
     // creat an employee
-    Employee employee(2, "Jane Savier", "emp54723", 8000.0);
+    Employee employee("Jane Savier", "emp54723", 8000.0);
     employee.display();
     cout << endl;
 
     // creat an admin
-    Admin admin(3, "Adam Zi", "admin6548", 5000.0);
+    Admin admin("Adam Zi", "admin6548", 5000.0);
     admin.display();
     cout << endl;
 }

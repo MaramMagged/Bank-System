@@ -1,7 +1,9 @@
 #pragma once
-#include "validation.h"
+
 #include <iostream>
 #include <string>
+
+#include "validation.h"
 
 using namespace std;
 
@@ -13,9 +15,8 @@ private:
     string Password;
 
 public:
-    Person(int ID, string Name, string Password)
+    Person(string Name, string Password)
     {
-        setID(ID);
         setName(Name);
         setPassword(Password);
     }

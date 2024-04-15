@@ -1,41 +1,35 @@
 #pragma once
+
 #include <iostream>
+
 #include "Employee.h"
 #include "Client.h"
-#include "HelperClass.h"
+#include "helperClass.h"
 
 using namespace std;
 
 class Admin : public Employee
 {
 private:
+    static inline int numberOfAdmins = 33000;
     double Salary;
 
 public:
-    Admin(int ID, string Name, string Password, double Salary)
-        : Employee(ID, Name, Password, Salary) {}
+    Admin(string Name, string Password, double Salary)
+        : Employee(Name, Password, Salary)
+    {
+        this->setID(++numberOfAdmins);
+        Employee::numberOfEmployees--;
+    }
 
     void SetSalary(double Salary)
     {
         this->Salary = Salary;
     }
 
-    void addClient(Client *client) // New
-    {
-        Employee::addClient(client); // New
-    }
-    void listClient(int id) // New
-    {
-        Employee::listClient(id);
-    }
-    void editClient(int id, string Name, string Password, double Balance) // New
-    {
-        Employee::editClient(id, Name, Password, Balance);
-    }
-
     void addEmployee(Employee employee) // New
     {
-        Employee::addClient(&employee);
+        Employee::AllEmployees.push_back(employee);
         cout << " Employee added successfully ." << endl;
     }
     void listEmployee(int id) // New
@@ -73,9 +67,9 @@ public:
     {
         for (auto i = 0; i < Client::AllClients.size(); i++)
         {
-            if (Employee::AllClients[i]->getID() == id)
+            if (Employee::AllEmployees[i].getID() == id)
             {
-                return &Employee::AllClients[i];
+                return &Employee::AllEmployees[i];
             }
         }
         return nullptr;

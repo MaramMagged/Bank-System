@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Person.h"
 #include <iostream>
 #include <string>
 #include <vector>
+
 #include "helperClass.h"
 #include "Client.h"
+#include "Person.h"
 
 using namespace std;
 
@@ -14,10 +15,14 @@ class Employee : public Person
 private:
     double Salary;
 
+protected:
+    static inline int numberOfEmployees = 22000;
+
 public:
-    Employee(int ID, string Name, string Password, double Salary)
-        : Person(ID, Name, Password)
+    Employee(string Name, string Password, double Salary)
+        : Person(Name, Password)
     {
+        this->setID(++numberOfEmployees);
         setSalary(Salary);
     }
 
@@ -61,11 +66,11 @@ public:
         {
             if (c->setName(name) && c->setPassword(password) && c->setBalance(balance))
             {
-                cout << " Clientinformation updated successfully." << endl;
+                cout << " Client information updated successfully." << endl;
             }
             else
             {
-                cout << " invalid  client information ." << endl;
+                cout << " invalid client information ." << endl;
             }
         }
         else
@@ -86,23 +91,18 @@ public:
         return nullptr;
     }
 
-    static inline vector<Employee> AllEmployee = {};
-    //****************************************
     string serialize()
     {
-        return to_string(ID) + "&" + Name + "&" + Password + "&" + to_string(Salary);
+        return getName() + "&" + getPassword() + "&" + to_string(getSalary());
     }
     void deserialize(string &line)
     {
-        vector<string> tokens = Parser::split(line, '&');
-        ID = stoi(tokens[0]);
-        Name = tokens[1];
-        Password = tokens[2];
-        Salary = stod(tokens[3]);
+        vector<string> tokens = Helper::split(line, '&');
+
+        setName(tokens[0]);
+        setPassword(tokens[1]);
+        setSalary(stod(tokens[2]));
     }
-    void display()
-    {
-        Person::display();
-        cout << "Salary : " << Salary << endl;
-    }
+
+    static inline vector<Employee> AllEmployees = {};
 };
